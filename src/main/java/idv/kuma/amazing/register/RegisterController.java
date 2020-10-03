@@ -1,10 +1,9 @@
-package idv.kuma.amazing;
+package idv.kuma.amazing.register;
 
 
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -13,8 +12,6 @@ public class RegisterController {
     private static final java.lang.String template = "Hello, %s!";
     private RegisterService registerService;
 
-    private Gson gson = new Gson();
-
 
     @Autowired
     public RegisterController(RegisterService registerService) {
@@ -22,11 +19,13 @@ public class RegisterController {
     }
 
 
-    @GetMapping("/v1/user/register")
-    public Response greeting(@RequestParam(value = "name", defaultValue = "World") java.lang.String name) {
+    @PostMapping("/v1/user/register")
+    public Response greeting(@ModelAttribute RegisterForm registerForm) {
 
-        return registerService.register();
+        Response response = registerService.register(registerForm);
 
+        return response;
 
     }
+
 }
