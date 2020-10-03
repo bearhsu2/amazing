@@ -10,18 +10,18 @@ import static org.mockito.Mockito.when;
 public class RegisterControllerTest {
 
 
-    public RegisterForm registerForm;
+    public RegisterForm form;
     public RegisterService mockedService;
 
 
     @Test
     public void When_All_OK_Then_Throws_Exception_Then_Return_Response() throws RegisterException {
 
-        registerForm = prepareRegisterForm();
+        form = prepareForm();
 
         mockedService = prepareRegisterServiceReturn("FAKE_TOKEN");
 
-        Response actual = new RegisterController(mockedService).greeting(registerForm);
+        Response actual = new RegisterController(mockedService).greeting(form);
 
         check(actual, new SuccessResponse("FAKE_TOKEN"));
 
@@ -29,14 +29,14 @@ public class RegisterControllerTest {
     }
 
 
-    private RegisterForm prepareRegisterForm() {
+    private RegisterForm prepareForm() {
         return new RegisterForm();
     }
 
 
     private RegisterService prepareRegisterServiceReturn(String token) throws RegisterException {
         RegisterService mockedService = Mockito.mock(RegisterService.class);
-        when(mockedService.register(this.registerForm)).thenReturn(new SuccessResponse(token));
+        when(mockedService.register(this.form)).thenReturn(new SuccessResponse(token));
         return mockedService;
     }
 
@@ -50,11 +50,11 @@ public class RegisterControllerTest {
     @Test
     public void When_RegisterService_Throws_Exception_Then_Return_ErrorResponse() throws RegisterException {
 
-        registerForm = new RegisterForm();
+        form = new RegisterForm();
 
         mockedService = prepareRegisterServiceThrow("FAKE_MESSAGE");
 
-        Response actual = new RegisterController(mockedService).greeting(registerForm);
+        Response actual = new RegisterController(mockedService).greeting(form);
 
         check(actual, new ErrorResponse("FAKE_MESSAGE"));
 
@@ -64,7 +64,7 @@ public class RegisterControllerTest {
 
     private RegisterService prepareRegisterServiceThrow(String message) throws RegisterException {
         RegisterService mockedService = Mockito.mock(RegisterService.class);
-        when(mockedService.register(registerForm)).thenThrow(new RegisterException(message));
+        when(mockedService.register(form)).thenThrow(new RegisterException(message));
         return mockedService;
     }
 }
