@@ -9,36 +9,62 @@ import static org.mockito.Mockito.when;
 
 public class RegisterControllerTest {
 
+
+    public RegisterForm registerForm;
+    public RegisterService mockedService;
+
+
     @Test
     public void When_All_OK_Then_Throws_Exception_Then_Return_Response() throws RegisterException {
 
-        RegisterForm registerForm = new RegisterForm();
+        registerForm = prepareRegisterForm();
 
-        RegisterService mockedService = Mockito.mock(RegisterService.class);
-        when(mockedService.register(registerForm)).thenReturn(new SuccessResponse("FAKE_TOKEN"));
+        mockedService = prepareRegisterServiceReturn("FAKE_TOKEN");
 
         Response actual = new RegisterController(mockedService).greeting(registerForm);
 
+        check(actual, new SuccessResponse("FAKE_TOKEN"));
+
+
+    }
+
+
+    private RegisterForm prepareRegisterForm() {
+        return new RegisterForm();
+    }
+
+
+    private RegisterService prepareRegisterServiceReturn(String token) throws RegisterException {
+        RegisterService mockedService = Mockito.mock(RegisterService.class);
+        when(mockedService.register(this.registerForm)).thenReturn(new SuccessResponse(token));
+        return mockedService;
+    }
+
+
+    private void check(Response actual, Response expected) {
         Assertions.assertThat(actual)
-                .isEqualToComparingFieldByField(new SuccessResponse("FAKE_TOKEN"));
-
-
+                .isEqualToComparingFieldByField(expected);
     }
 
 
     @Test
     public void When_RegisterService_Throws_Exception_Then_Return_ErrorResponse() throws RegisterException {
 
-        RegisterForm registerForm = new RegisterForm();
+        registerForm = new RegisterForm();
 
-        RegisterService mockedService = Mockito.mock(RegisterService.class);
-        when(mockedService.register(registerForm)).thenThrow(new RegisterException("FAKE_MESSAGE"));
+        mockedService = prepareRegisterServiceThrow("FAKE_MESSAGE");
 
         Response actual = new RegisterController(mockedService).greeting(registerForm);
 
-        Assertions.assertThat(actual)
-                .isEqualToComparingFieldByField(new ErrorResponse("FAKE_MESSAGE"));
+        check(actual, new ErrorResponse("FAKE_MESSAGE"));
 
 
+    }
+
+
+    private RegisterService prepareRegisterServiceThrow(String message) throws RegisterException {
+        RegisterService mockedService = Mockito.mock(RegisterService.class);
+        when(mockedService.register(registerForm)).thenThrow(new RegisterException(message));
+        return mockedService;
     }
 }
