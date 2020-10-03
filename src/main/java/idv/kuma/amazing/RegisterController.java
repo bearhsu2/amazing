@@ -2,10 +2,9 @@ package idv.kuma.amazing;
 
 
 import com.google.gson.Gson;
+import com.google.gson.stream.JsonToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RegisterController {
@@ -22,11 +21,18 @@ public class RegisterController {
     }
 
 
-    @GetMapping("/v1/user/register")
-    public Response greeting(@RequestParam(value = "name", defaultValue = "World") java.lang.String name) {
+    @PostMapping("/v1/user/register")
+    public Response greeting(@ModelAttribute RegisterForm registerForm) {
+
+        System.out.println(registerForm.getName());
+
+
 
         return registerService.register();
 
-
     }
+
+//    public Echo setterMessage2(@ModelAttribute Message message) {
+//        return new Echo(counter.incrementAndGet(), String.format(echoTemplate2, message.getFrom(), message.getTo(), message.getContent()));
+//    }
 }
