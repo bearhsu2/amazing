@@ -10,18 +10,14 @@ import static org.mockito.Mockito.when;
 public class RegisterControllerTest {
 
 
-    public RegisterForm form;
-    public RegisterService mockedService;
-
-
     @Test
     public void When_All_OK_Then_Throws_Exception_Then_Return_Response() throws RegisterException {
 
-        form = prepareForm();
+        RegisterForm form = prepareForm();
 
-        mockedService = prepareRegisterServiceReturn("FAKE_TOKEN");
+        RegisterServiceFactory mockedFactory = prepareRegisterServiceReturn(form, "FAKE_TOKEN");
 
-        Response actual = new RegisterController(mockedService).greeting(form);
+        Response actual = new RegisterController(mockedFactory).greeting(form);
 
         check(actual, new SuccessResponse("FAKE_TOKEN"));
 
@@ -34,10 +30,16 @@ public class RegisterControllerTest {
     }
 
 
-    private RegisterService prepareRegisterServiceReturn(String token) throws RegisterException {
+    private RegisterServiceFactory prepareRegisterServiceReturn(RegisterForm form, String token) throws RegisterException {
+
         RegisterService mockedService = Mockito.mock(RegisterService.class);
-        when(mockedService.register(this.form)).thenReturn(new SuccessResponse(token));
-        return mockedService;
+        when(mockedService.register(form)).thenReturn(new SuccessResponse(token));
+
+        RegisterServiceFactory factory = Mockito.mock(RegisterServiceFactory.class);
+        when(factory.create(form)).thenReturn(mockedService);
+
+        return factory;
+
     }
 
 
@@ -50,11 +52,11 @@ public class RegisterControllerTest {
     @Test
     public void When_RegisterService_Throws_Exception_Then_Return_ErrorResponse() throws RegisterException {
 
-        form = new RegisterForm();
+        RegisterForm form = prepareForm();
 
-        mockedService = prepareRegisterServiceThrow("FAKE_MESSAGE");
+        RegisterServiceFactory mockedFactory = prepareRegisterServiceThrow(form, "FAKE_MESSAGE");
 
-        Response actual = new RegisterController(mockedService).greeting(form);
+        Response actual = new RegisterController(mockedFactory).greeting(form);
 
         check(actual, new ErrorResponse("FAKE_MESSAGE"));
 
@@ -62,9 +64,13 @@ public class RegisterControllerTest {
     }
 
 
-    private RegisterService prepareRegisterServiceThrow(String message) throws RegisterException {
+    private RegisterServiceFactory prepareRegisterServiceThrow(RegisterForm form, String message) throws RegisterException {
         RegisterService mockedService = Mockito.mock(RegisterService.class);
         when(mockedService.register(form)).thenThrow(new RegisterException(message));
-        return mockedService;
+
+        RegisterServiceFactory factory = Mockito.mock(RegisterServiceFactory.class);
+        when(factory.create(form)).thenReturn(mockedService);
+
+        return factory;
     }
 }

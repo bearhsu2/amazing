@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegisterController {
 
     private static final java.lang.String template = "Hello, %s!";
-    private RegisterService registerService;
+
+    private RegisterServiceFactory factory;
 
 
     @Autowired
-    public RegisterController(RegisterService registerService) {
-        this.registerService = registerService;
+    public RegisterController(RegisterServiceFactory factory) {
+        this.factory = factory;
     }
 
 
@@ -24,7 +25,10 @@ public class RegisterController {
     public Response greeting(@ModelAttribute RegisterForm registerForm) {
 
         try {
+
+            RegisterService registerService = factory.create(registerForm);
             return registerService.register(registerForm);
+
         } catch (RegisterException e) {
             return new ErrorResponse(e.getMessage());
         }
