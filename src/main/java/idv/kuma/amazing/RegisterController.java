@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class GreetingController {
+public class RegisterController {
 
     private static final String template = "Hello, %s!";
 
 
-    @GetMapping("/greeting")
-    public String greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return template;
+    @GetMapping("/v1/user/register")
+    public Response greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+        return new Response("aaaabbbb");
     }
 }
