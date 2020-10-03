@@ -1,4 +1,4 @@
-package idv.kuma.amazing;
+package idv.kuma.amazing.register;
 
 public class RegisterForm {
 

@@ -1,4 +1,4 @@
-package idv.kuma.amazing;
+package idv.kuma.amazing.register;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
