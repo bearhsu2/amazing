@@ -1,6 +1,7 @@
 package idv.kuma.amazing.register;
 
 
+import idv.kuma.amazing.RegisterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,9 +23,11 @@ public class RegisterController {
     @PostMapping("/v1/user/register")
     public Response greeting(@ModelAttribute RegisterForm registerForm) {
 
-        Response response = registerService.register(registerForm);
-
-        return response;
+        try {
+            return registerService.register(registerForm);
+        } catch (RegisterException e) {
+            return new ErrorResponse(e.getMessage());
+        }
 
     }
 
