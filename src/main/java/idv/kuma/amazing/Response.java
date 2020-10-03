@@ -1,19 +1,11 @@
 package idv.kuma.amazing;
 
 public class Response {
+    private String token;
+
 
     public Response(String token) {
         this.token = token;
-    }
-
-
-    public String getMessage() {
-        return message;
-    }
-
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
 
@@ -27,6 +19,4 @@ public class Response {
     }
 
 
-    private String token;
-    private String message;
 }
