@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RegisterService {
 
-    public Response register() {
+    public Response register(RegisterForm registerForm) {
         return new Response("aaaaabbbbb");
     }
 }
