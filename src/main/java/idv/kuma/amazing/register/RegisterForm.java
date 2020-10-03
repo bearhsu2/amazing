@@ -4,6 +4,7 @@ public class RegisterForm {
 
     private String name;
     private String email;
+    private String password;
 
 
     public String getName() {
@@ -34,7 +35,4 @@ public class RegisterForm {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
-    private String password;
 }
