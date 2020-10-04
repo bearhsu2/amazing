@@ -30,7 +30,7 @@ public class RegisterService {
 
             return tokenGenerator.generate();
 
-        } catch (Exception e) {
+        } catch (CheckerException e) {
             throw new RegisterException(e.getMessage());
         }
 
