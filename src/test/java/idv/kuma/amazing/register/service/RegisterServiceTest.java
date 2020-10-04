@@ -33,7 +33,7 @@ public class RegisterServiceTest {
     @Test
     public void When_PhoneNumber_Has_Been_Registered_Then_Throw_Exception() throws DuplicatedRecordException {
 
-        doThrow(new DuplicatedRecordException("Phone number has been registered")).when(mockedRegisterer).doRegister(data);
+        doThrow(new DuplicatedRecordException("Phone number has been registered.")).when(mockedRegisterer).doRegister(data);
 
         RegisterService service = new RegisterService(
                 mockedChecker,
@@ -46,7 +46,7 @@ public class RegisterServiceTest {
             service.register(data);
             Assert.fail("Should throw exception");
         } catch (ServiceException e) {
-            Assertions.assertThat(e).hasMessage("Phone number has been registered");
+            Assertions.assertThat(e).hasMessage("Phone number has been registered.");
         }
 
 
@@ -56,7 +56,7 @@ public class RegisterServiceTest {
     @Test
     public void When_Email_Has_Been_Registered_Then_Throw_Exception() throws DuplicatedRecordException {
 
-        doThrow(new DuplicatedRecordException("Email has been registered")).when(mockedRegisterer).doRegister(data);
+        doThrow(new DuplicatedRecordException("Email has been registered.")).when(mockedRegisterer).doRegister(data);
 
         RegisterService service = new RegisterService(
                 mockedChecker,
@@ -69,7 +69,7 @@ public class RegisterServiceTest {
             service.register(data);
             Assert.fail("Should throw exception");
         } catch (ServiceException e) {
-            Assertions.assertThat(e).hasMessage("Email has been registered");
+            Assertions.assertThat(e).hasMessage("Email has been registered.");
         }
 
 

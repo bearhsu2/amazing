@@ -9,7 +9,7 @@ public class RegisterServiceFactory {
     public RegisterService create(Type type) throws RegisterServiceFactoryException {
 
         if (type == null) {
-            throw new RegisterServiceFactoryException("Type unprovided.");
+            throw new RegisterServiceFactoryException("type.unprovided");
         }
 
         switch (type) {
@@ -28,7 +28,7 @@ public class RegisterServiceFactory {
                         new PhoneMessenger()
                 );
             default:
-                throw new RegisterServiceFactoryException("Type unsupported.");
+                throw new RegisterServiceFactoryException("type.unsupported");
         }
 
 
