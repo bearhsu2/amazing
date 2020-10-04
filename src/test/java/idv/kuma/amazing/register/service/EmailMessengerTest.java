@@ -11,10 +11,30 @@ import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import java.io.IOException;
 
+import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
+
 class EmailMessengerTest {
 
 
     public Transporter mockedTransporter;
+
+
+    @Test
+    void When_Error_Happened_Then_Throw_Exception() throws MessengerException, MessagingException, IOException {
+        mockedTransporter = Mockito.mock(Transporter.class);
+        doThrow(new MessagingException("FAKE_EXCEPTION")).when(mockedTransporter).send(any(Message.class));
+
+        try {
+            new EmailMessenger(mockedTransporter).send(null);
+            fail("Should throw exception");
+        } catch (MessengerException e) {
+            Assert.assertEquals("Failed to send email to bearhsu2@gmail.com", e.getMessage());
+        }
+
+
+    }
 
 
     @Test

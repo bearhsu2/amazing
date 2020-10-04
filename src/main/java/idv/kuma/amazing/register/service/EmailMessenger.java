@@ -34,7 +34,7 @@ public class EmailMessenger implements Messenger {
 
         } catch (MessagingException e) {
 
-            throw new MessengerException("Failed to send email to: " + "bearhsu2@gmail.com");
+            throw new MessengerException("Failed to send email to " + "bearhsu2@gmail.com");
         }
     }
 
