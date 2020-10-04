@@ -9,6 +9,17 @@ import java.util.Properties;
 
 public class EmailMessenger implements Messenger {
 
+    private Transporter transportExecutor = new Transporter();
+
+
+    public EmailMessenger() {
+    }
+
+
+    EmailMessenger(Transporter transportExecutor) {
+        this.transportExecutor = transportExecutor;
+    }
+
 
     @Override
     public void send(RegisterData registerData) throws MessengerException {
@@ -19,7 +30,8 @@ public class EmailMessenger implements Messenger {
         try {
             Message message = createMessage(session, "bearhsu2@gmail.com", "bearhsu2@gmail.com", "Registered successfully", "Hi haha ！ Welcome to AmazingTalker.");
 
-            Transport.send(message);
+            transportExecutor.send(message);
+
         } catch (MessagingException e) {
 
             throw new MessengerException("Failed to send email to: " + "bearhsu2@gmail.com");
