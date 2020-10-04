@@ -56,7 +56,7 @@ class EmailMessengerTest {
         check("bearhsu2@gmail.com",
                 "SOME@EMAIL.ADDRESS",
                 "Registered successfully",
-                "Hi Kuma ！ Welcome to AmazingTalker.");
+                "Hi Kuma! Welcome to AmazingTalker.");
 
     }
 
