@@ -3,19 +3,22 @@ package idv.kuma.amazing.register.controller;
 import idv.kuma.amazing.register.service.*;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 @Component
 public class RegisterServiceFactory {
 
     public RegisterService create(Type type) throws RegisterServiceFactoryException {
 
-        if (type.equals(Type.EMAIL)) {
+
+        if (Objects.equals(type, Type.EMAIL)) {
             return new RegisterService(
                     new DataChecker(),
                     new EmailRegisterer(),
                     new TokenGenerator(),
                     new EmailMessenger()
             );
-        } else if (type.equals(Type.PHONE)) {
+        } else if (Objects.equals(type, Type.PHONE)) {
             return new RegisterService(
                     new DataChecker(),
                     new PhoneRegisterer(),
@@ -24,6 +27,6 @@ public class RegisterServiceFactory {
             );
         }
 
-        throw new RegisterServiceFactoryException("type unsupported");
+        throw new RegisterServiceFactoryException("Type unsupported.");
     }
 }

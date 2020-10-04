@@ -31,9 +31,9 @@ public class RegisterServiceTest {
 
 
     @Test
-    public void When_PhoneNumber_Has_Been_Registered_Then_Throw_Exception() throws RegisterException {
+    public void When_PhoneNumber_Has_Been_Registered_Then_Throw_Exception() throws DuplicatedRecordException {
 
-        doThrow(new RegisterException("Phone number has been registered")).when(mockedRegisterer).doRegister(data);
+        doThrow(new DuplicatedRecordException("Phone number has been registered")).when(mockedRegisterer).doRegister(data);
 
         RegisterService service = new RegisterService(
                 mockedChecker,
@@ -54,9 +54,9 @@ public class RegisterServiceTest {
 
 
     @Test
-    public void When_Email_Has_Been_Registered_Then_Throw_Exception() throws RegisterException {
+    public void When_Email_Has_Been_Registered_Then_Throw_Exception() throws DuplicatedRecordException {
 
-        doThrow(new RegisterException("Email has been registered")).when(mockedRegisterer).doRegister(data);
+        doThrow(new DuplicatedRecordException("Email has been registered")).when(mockedRegisterer).doRegister(data);
 
         RegisterService service = new RegisterService(
                 mockedChecker,

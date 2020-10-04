@@ -2,7 +2,10 @@ package idv.kuma.amazing.register.controller;
 
 import idv.kuma.amazing.register.service.*;
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.Assert.fail;
 
 
 class RegisterServiceFactoryTest {
@@ -53,6 +56,21 @@ class RegisterServiceFactoryTest {
                 PhoneRegisterer.class,
                 PhoneMessenger.class
         );
+
+    }
+
+
+    @Test
+    void When_Type_Unsupported_Then_Throw_Exception() {
+
+        factory = new RegisterServiceFactory();
+
+        try {
+            RegisterService service = factory.create(null);
+            fail("Should throw exception.");
+        } catch (RegisterServiceFactoryException e) {
+            Assert.assertEquals("Type unsupported.", e.getMessage());
+        }
 
     }
 }
