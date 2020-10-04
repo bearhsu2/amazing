@@ -18,7 +18,7 @@ public class RegisterService {
     }
 
 
-    SuccessResponse register(RegisterForm registerForm) throws RegisterException {
+    String register(RegisterForm registerForm) throws RegisterException {
 
         try {
             checker.check(registerForm);
@@ -27,9 +27,8 @@ public class RegisterService {
 
             messenger.send();
 
-            String token = tokenGenerator.generate();
+            return tokenGenerator.generate();
 
-            return new SuccessResponse(token);
         } catch (Exception e) {
             throw new RegisterException(e.getMessage());
         }

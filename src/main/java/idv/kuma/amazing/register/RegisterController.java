@@ -27,7 +27,7 @@ public class RegisterController {
         try {
 
             RegisterService registerService = factory.create(registerForm);
-            return registerService.register(registerForm);
+            return new SuccessResponse(registerService.register(registerForm));
 
         } catch (RegisterException e) {
             return new ErrorResponse(e.getMessage());

@@ -27,10 +27,9 @@ public class RegisterServiceTest {
                 mockedMessenger
         );
 
-        SuccessResponse actual = service.register(form);
+        String actual = service.register(form);
 
-        Assertions.assertThat(actual)
-                .isEqualToComparingFieldByField(new SuccessResponse("FAKE_TOKEN"));
+        Assertions.assertThat(actual).isEqualTo("FAKE_TOKEN");
 
     }
 }

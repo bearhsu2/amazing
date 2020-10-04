@@ -33,7 +33,7 @@ public class RegisterControllerTest {
     private RegisterServiceFactory prepareRegisterServiceReturn(RegisterForm form, String token) throws RegisterException {
 
         RegisterService mockedService = Mockito.mock(RegisterService.class);
-        when(mockedService.register(form)).thenReturn(new SuccessResponse(token));
+        when(mockedService.register(form)).thenReturn(token);
 
         RegisterServiceFactory factory = Mockito.mock(RegisterServiceFactory.class);
         when(factory.create(form)).thenReturn(mockedService);
