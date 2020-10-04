@@ -28,13 +28,18 @@ public class EmailMessenger implements Messenger {
         Session session = createSession();
 
         try {
-            Message message = createMessage(session, "bearhsu2@gmail.com", "bearhsu2@gmail.com", "Registered successfully", "Hi haha ！ Welcome to AmazingTalker.");
+            Message message = createMessage(
+                    session,
+                    "bearhsu2@gmail.com",
+                    registerData.getEmail(),
+                    "Registered successfully",
+                    "Hi haha ！ Welcome to AmazingTalker.");
 
             transportExecutor.send(message);
 
         } catch (MessagingException e) {
 
-            throw new MessengerException("Failed to send email to " + "bearhsu2@gmail.com");
+            throw new MessengerException("Failed to send email to " + registerData.getEmail());
         }
     }
 
