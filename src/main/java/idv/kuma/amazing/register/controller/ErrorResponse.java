@@ -1,4 +1,4 @@
-package idv.kuma.amazing.register;
+package idv.kuma.amazing.register.controller;
 
 public class ErrorResponse extends Response {
 
