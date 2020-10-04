@@ -1,8 +1,5 @@
 package idv.kuma.amazing.register.controller;
 
-import idv.kuma.amazing.register.controller.RegisterServiceFactory;
-import idv.kuma.amazing.register.controller.RegisterServiceFactoryException;
-import idv.kuma.amazing.register.controller.Type;
 import idv.kuma.amazing.register.service.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,7 +18,6 @@ class RegisterServiceFactoryTest {
 
         runAndCheck(
                 Type.EMAIL,
-                EmailDataChecker.class,
                 EmailRegisterer.class,
                 EmailMessenger.class
         );
@@ -29,12 +25,12 @@ class RegisterServiceFactoryTest {
     }
 
 
-    private void runAndCheck(Type type, Class checkerClass, Class registererClass, Class messengerClass) throws RegisterServiceFactoryException {
+    private void runAndCheck(Type type, Class registererClass, Class messengerClass) throws RegisterServiceFactoryException {
         RegisterService service = factory.create(type);
 
         Assertions.assertThat(service.getChecker())
                 .isNotNull()
-                .isInstanceOf(checkerClass);
+                .isInstanceOf(DataChecker.class);
         Assertions.assertThat(service.getRegisterer())
                 .isNotNull()
                 .isInstanceOf(registererClass);
@@ -54,7 +50,6 @@ class RegisterServiceFactoryTest {
 
         runAndCheck(
                 Type.PHONE,
-                PhoneDataChecker.class,
                 PhoneRegisterer.class,
                 PhoneMessenger.class
         );

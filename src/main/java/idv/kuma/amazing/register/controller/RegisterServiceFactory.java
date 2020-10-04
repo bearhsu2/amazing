@@ -10,14 +10,14 @@ public class RegisterServiceFactory {
 
         if (type.equals(Type.EMAIL)) {
             return new RegisterService(
-                    new EmailDataChecker(),
+                    new DataChecker(),
                     new EmailRegisterer(),
                     new TokenGenerator(),
                     new EmailMessenger()
             );
         } else if (type.equals(Type.PHONE)) {
             return new RegisterService(
-                    new PhoneDataChecker(),
+                    new DataChecker(),
                     new PhoneRegisterer(),
                     new TokenGenerator(),
                     new PhoneMessenger()
