@@ -34,4 +34,24 @@ public class RegisterService {
         }
 
     }
+
+
+    public DataChecker getChecker() {
+        return checker;
+    }
+
+
+    public Registerer getRegisterer() {
+        return registerer;
+    }
+
+
+    public TokenGenerator getTokenGenerator() {
+        return tokenGenerator;
+    }
+
+
+    public Messenger getMessenger() {
+        return messenger;
+    }
 }
