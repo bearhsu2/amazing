@@ -4,13 +4,13 @@ import idv.kuma.amazing.ServiceException;
 
 public class RegisterService {
 
-    private FormChecker checker;
+    private DataChecker checker;
     private Registerer registerer;
     private TokenGenerator tokenGenerator;
     private Messenger messenger;
 
 
-    public RegisterService(FormChecker checker, Registerer registerer, TokenGenerator tokenGenerator, Messenger messenger) {
+    public RegisterService(DataChecker checker, Registerer registerer, TokenGenerator tokenGenerator, Messenger messenger) {
         this.checker = checker;
         this.registerer = registerer;
         this.tokenGenerator = tokenGenerator;

@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 public class RegisterServiceTest {
 
 
-    public FormChecker mockedChecker;
+    public DataChecker mockedChecker;
     public Registerer mockedRegisterer;
     public TokenGenerator mockedTokenGenerator;
     public Messenger mockedMessenger;
@@ -23,7 +23,7 @@ public class RegisterServiceTest {
     @BeforeEach
     void setUp() {
         data = new RegisterData("AnyName", "AnyEmail", "AnyPassword");
-        mockedChecker = Mockito.mock(FormChecker.class);
+        mockedChecker = Mockito.mock(DataChecker.class);
         mockedRegisterer = Mockito.mock(Registerer.class);
         mockedTokenGenerator = Mockito.mock(TokenGenerator.class);
         mockedMessenger = Mockito.mock(Messenger.class);

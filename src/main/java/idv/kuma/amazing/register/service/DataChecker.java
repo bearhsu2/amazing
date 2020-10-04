@@ -1,5 +1,5 @@
 package idv.kuma.amazing.register.service;
 
-public interface FormChecker {
+public interface DataChecker {
     void check(RegisterData registerData) throws CheckerException;
 }
