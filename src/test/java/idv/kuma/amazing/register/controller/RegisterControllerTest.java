@@ -38,7 +38,7 @@ public class RegisterControllerTest {
         when(mockedService.register(form)).thenReturn(token);
 
         RegisterServiceFactory factory = Mockito.mock(RegisterServiceFactory.class);
-        when(factory.create(form)).thenReturn(mockedService);
+        when(factory.create()).thenReturn(mockedService);
 
         return factory;
 
@@ -71,7 +71,7 @@ public class RegisterControllerTest {
         when(mockedService.register(form)).thenThrow(new ServiceException(message));
 
         RegisterServiceFactory factory = Mockito.mock(RegisterServiceFactory.class);
-        when(factory.create(form)).thenReturn(mockedService);
+        when(factory.create()).thenReturn(mockedService);
 
         return factory;
     }

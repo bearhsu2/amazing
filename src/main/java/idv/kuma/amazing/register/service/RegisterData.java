@@ -1,17 +1,11 @@
-package idv.kuma.amazing.register.controller;
+package idv.kuma.amazing.register.service;
 
-import idv.kuma.amazing.register.service.RegisterData;
+public class RegisterData {
 
-public class RegisterForm {
 
     private String name;
     private String email;
     private String password;
-
-
-    public RegisterData toRegisterData() {
-        return new RegisterData(name, email, password);
-    }
 
 
     public String getName() {
@@ -40,6 +34,13 @@ public class RegisterForm {
 
 
     public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public RegisterData(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
         this.password = password;
     }
 }

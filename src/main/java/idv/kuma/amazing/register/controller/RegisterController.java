@@ -2,6 +2,7 @@ package idv.kuma.amazing.register.controller;
 
 
 import idv.kuma.amazing.ServiceException;
+import idv.kuma.amazing.register.service.RegisterData;
 import idv.kuma.amazing.register.service.RegisterService;
 import idv.kuma.amazing.register.service.RegisterServiceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,10 @@ public class RegisterController {
 
         try {
 
-            RegisterService registerService = factory.create(registerForm);
+            RegisterData registerData = registerForm.toRegisterData();
+
+            // todo: 改用type選service
+            RegisterService registerService = factory.create();
             return new SuccessResponse(registerService.register(registerForm));
 
         } catch (ServiceException e) {
