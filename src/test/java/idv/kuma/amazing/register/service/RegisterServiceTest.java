@@ -31,9 +31,9 @@ public class RegisterServiceTest {
 
 
     @Test
-    public void When_Register_Fails_Then_Throw_Exception() throws RegisterException {
+    public void When_PhoneNumber_Has_Been_Registered_Then_Throw_Exception() throws RegisterException {
 
-        doThrow(new RegisterException("FAKE_REGISTER_MESSAGE")).when(mockedRegisterer).doRegister(data);
+        doThrow(new RegisterException("Phone number has been registered")).when(mockedRegisterer).doRegister(data);
 
         RegisterService service = new RegisterService(
                 mockedChecker,
@@ -46,7 +46,30 @@ public class RegisterServiceTest {
             service.register(data);
             Assert.fail("Should throw exception");
         } catch (ServiceException e) {
-            Assertions.assertThat(e).hasMessage("FAKE_REGISTER_MESSAGE");
+            Assertions.assertThat(e).hasMessage("Phone number has been registered");
+        }
+
+
+    }
+
+
+    @Test
+    public void When_Email_Has_Been_Registered_Then_Throw_Exception() throws RegisterException {
+
+        doThrow(new RegisterException("Email has been registered")).when(mockedRegisterer).doRegister(data);
+
+        RegisterService service = new RegisterService(
+                mockedChecker,
+                mockedRegisterer,
+                mockedTokenGenerator,
+                mockedMessenger
+        );
+
+        try {
+            service.register(data);
+            Assert.fail("Should throw exception");
+        } catch (ServiceException e) {
+            Assertions.assertThat(e).hasMessage("Email has been registered");
         }
 
 
