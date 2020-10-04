@@ -13,13 +13,22 @@ public class EmailMessenger implements Messenger {
     @Override
     public void send(RegisterData registerData) throws MessengerException {
 
-        Properties prop = new Properties();
-        prop.put("mail.smtp.auth", true);
-        prop.put("mail.smtp.starttls.enable", "true");
-        prop.put("mail.smtp.host", "smtp.mailtrap.io");
-        prop.put("mail.smtp.port", "25");
-        prop.put("mail.smtp.ssl.trust", "smtp.mailtrap.io");
 
+        Session session = createSession();
+
+        try {
+            Message message = createMessage(session, "bearhsu2@gmail.com", "bearhsu2@gmail.com", "Registered successfully", "Hi haha ！ Welcome to AmazingTalker.");
+
+            Transport.send(message);
+        } catch (MessagingException e) {
+
+            throw new MessengerException("Failed to send email to: " + "bearhsu2@gmail.com");
+        }
+    }
+
+
+    private Session createSession() {
+        Properties prop = generateProperties();
         Session session = Session.getInstance(prop, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -28,28 +37,36 @@ public class EmailMessenger implements Messenger {
         });
 
         session.setDebug(true);
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("bearhsu2@gmail.com"));
-            message.setRecipients(
-                    Message.RecipientType.TO, InternetAddress.parse("bearhsu2@gmail.com"));
-            message.setSubject("Registered successfully");
+        return session;
+    }
 
-            String msg = "Hi haha ！ Welcome to AmazingTalker.";
 
-            MimeBodyPart mimeBodyPart = new MimeBodyPart();
-            mimeBodyPart.setContent(msg, "text/html");
+    private Message createMessage(Session session, String from, String to, String subject, String msg) throws MessagingException {
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(from));
+        message.setRecipients(
+                Message.RecipientType.TO, InternetAddress.parse(to));
+        message.setSubject(subject);
 
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(mimeBodyPart);
+        MimeBodyPart mimeBodyPart = new MimeBodyPart();
+        mimeBodyPart.setContent(msg, "text/html");
 
-            message.setContent(multipart);
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(mimeBodyPart);
 
-            Transport.send(message);
-        } catch (MessagingException e) {
+        message.setContent(multipart);
+        return message;
+    }
 
-            throw new MessengerException("Failed to send email to: " + "bearhsu2@gmail.com");
-        }
+
+    private Properties generateProperties() {
+        Properties prop = new Properties();
+        prop.put("mail.smtp.auth", true);
+        prop.put("mail.smtp.starttls.enable", "true");
+        prop.put("mail.smtp.host", "smtp.mailtrap.io");
+        prop.put("mail.smtp.port", "25");
+        prop.put("mail.smtp.ssl.trust", "smtp.mailtrap.io");
+        return prop;
     }
 
 }
