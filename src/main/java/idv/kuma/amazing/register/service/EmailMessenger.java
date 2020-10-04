@@ -33,7 +33,7 @@ public class EmailMessenger implements Messenger {
                     "bearhsu2@gmail.com",
                     registerData.getEmail(),
                     "Registered successfully",
-                    "Hi haha ！ Welcome to AmazingTalker.");
+                    "Hi " + registerData.getName() + " ！ Welcome to AmazingTalker.");
 
             transportExecutor.send(message);
 

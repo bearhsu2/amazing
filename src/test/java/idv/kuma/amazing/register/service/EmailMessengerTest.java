@@ -28,7 +28,7 @@ class EmailMessengerTest {
 
         try {
             new EmailMessenger(mockedTransporter).send(
-                    createRegisterData("SOME@EMAIL.ADDRESS")
+                    createRegisterData("Kuma", "SOME@EMAIL.ADDRESS")
             );
             fail("Should throw exception");
         } catch (MessengerException e) {
@@ -40,8 +40,8 @@ class EmailMessengerTest {
     }
 
 
-    private RegisterData createRegisterData(String toAddress) {
-        return new RegisterData("AnyName", toAddress, "AnyPassword", "AnyPassword");
+    private RegisterData createRegisterData(String name, String toAddress) {
+        return new RegisterData(name, toAddress, "AnyPassword", "AnyPassword");
     }
 
 
@@ -49,12 +49,14 @@ class EmailMessengerTest {
     void When_All_Ok_Then_Email_Is_Sent() throws MessengerException, MessagingException, IOException {
         mockedTransporter = Mockito.mock(Transporter.class);
 
-        new EmailMessenger(mockedTransporter).send(createRegisterData("SOME@EMAIL.ADDRESS"));
+        new EmailMessenger(mockedTransporter).send(
+                createRegisterData("Kuma", "SOME@EMAIL.ADDRESS")
+        );
 
         check("bearhsu2@gmail.com",
                 "SOME@EMAIL.ADDRESS",
                 "Registered successfully",
-                "Hi haha ！ Welcome to AmazingTalker.");
+                "Hi Kuma ！ Welcome to AmazingTalker.");
 
     }
 
