@@ -69,7 +69,7 @@ class RegisterServiceFactoryTest {
             RegisterService service = factory.create(null);
             fail("Should throw exception.");
         } catch (RegisterServiceFactoryException e) {
-            Assert.assertEquals("Type unprovided.", e.getMessage());
+            Assert.assertEquals("type.unprovided", e.getMessage());
         }
 
     }

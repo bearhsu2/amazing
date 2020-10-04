@@ -15,7 +15,7 @@ class DataCheckerTest {
             fail("Should throw exception.");
         } catch (CheckerException e) {
             Assertions.assertThat(e)
-                    .hasMessage("Re-enter Password incorrect.");
+                    .hasMessage("reenter.password.incorrect.");
         }
 
     }
@@ -34,7 +34,7 @@ class DataCheckerTest {
             fail("Should throw exception.");
         } catch (CheckerException e) {
             Assertions.assertThat(e)
-                    .hasMessage("Password too short.");
+                    .hasMessage("password.too.short");
         }
 
     }
@@ -48,7 +48,7 @@ class DataCheckerTest {
             fail("Should throw exception.");
         } catch (CheckerException e) {
             Assertions.assertThat(e)
-                    .hasMessage("Password too short.");
+                    .hasMessage("password.too.short");
         }
 
     }

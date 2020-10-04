@@ -10,11 +10,11 @@ public class DataChecker {
         String password = registerData.getPassword();
 
         if (StringUtils.isEmpty(password) || password.length() < 8) {
-            throw new CheckerException("Password too short.");
+            throw new CheckerException("password.too.short");
         }
 
         if (!registerData.getPassword().equals(registerData.getConfirmPassword())) {
-            throw new CheckerException("Re-enter Password incorrect.");
+            throw new CheckerException("reenter.password.incorrect.");
         }
 
     }
