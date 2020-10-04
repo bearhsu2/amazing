@@ -7,6 +7,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.context.MessageSource;
+import org.springframework.context.NoSuchMessageException;
 
 import java.util.Locale;
 
@@ -69,12 +70,13 @@ public class RegisterControllerTest {
 
 
     @Test
-    public void When_RegisterService_Throws_Exception_Then_Return_ErrorResponse() throws ServiceException, RegisterServiceFactoryException {
+    public void When_RegisterService_Throws_Exception_Then_Return_ErrorResponse_With_Localed_Message() throws ServiceException, RegisterServiceFactoryException {
 
         RegisterForm form = prepareRegisterForm();
 
-        RegisterServiceFactory mockedFactory = prepareRegisterServiceThrow(form.toRegisterData(), "FAKE_MESSAGE");
+        RegisterServiceFactory mockedFactory = prepareRegisterServiceThrowException(form.toRegisterData(), "FAKE_MESSAGE");
         MessageSource mockedMessageSource = prepareMessageSource("FAKE_MESSAGE", Locale.US, "LOCALED_FAKE_MESSAGE");
+
 
         Response actual = new RegisterController(mockedFactory, mockedMessageSource)
                 .register(Locale.US, form);
@@ -85,7 +87,7 @@ public class RegisterControllerTest {
     }
 
 
-    private RegisterServiceFactory prepareRegisterServiceThrow(RegisterData data, String message) throws ServiceException, RegisterServiceFactoryException {
+    private RegisterServiceFactory prepareRegisterServiceThrowException(RegisterData data, String message) throws ServiceException, RegisterServiceFactoryException {
         RegisterService mockedService = Mockito.mock(RegisterService.class);
         when(mockedService.register(eq(data))).thenThrow(new ServiceException(message));
 
@@ -93,5 +95,31 @@ public class RegisterControllerTest {
         when(factory.create(any(Type.class))).thenReturn(mockedService);
 
         return factory;
+    }
+
+
+    @Test
+    public void When_RegisterService_Throws_Exception_But_Localed_Message_Not_Found_Then_Return_ErrorResponse_With_Key() throws ServiceException, RegisterServiceFactoryException {
+
+        RegisterForm form = prepareRegisterForm();
+
+        RegisterServiceFactory mockedFactory = prepareRegisterServiceThrowException(form.toRegisterData(), "FAKE_MESSAGE");
+        MessageSource mockedMessageSource = prepareMessageSourceThrowException("FAKE_MESSAGE", Locale.US, "LOCALED_FAKE_MESSAGE");
+
+        Response actual = new RegisterController(mockedFactory, mockedMessageSource)
+                .register(Locale.US, form);
+
+        check(actual, new ErrorResponse("FAKE_MESSAGE"));
+
+
+    }
+
+
+    private MessageSource prepareMessageSourceThrowException(String key, Locale locale, String localedMessage) {
+        MessageSource mockedMessageSource = Mockito.mock(MessageSource.class);
+        when(mockedMessageSource.getMessage(key, null, locale))
+                .thenThrow(new NoSuchMessageException(""));
+
+        return mockedMessageSource;
     }
 }

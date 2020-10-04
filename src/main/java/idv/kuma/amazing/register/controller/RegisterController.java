@@ -6,6 +6,7 @@ import idv.kuma.amazing.register.service.RegisterData;
 import idv.kuma.amazing.register.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.NoSuchMessageException;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -39,10 +40,22 @@ public class RegisterController {
             return new SuccessResponse(registerService.register(registerData));
         } catch (ServiceException | RegisterServiceFactoryException e) {
 
-            String message = messageSource.getMessage(e.getMessage(), null, locale);
+            String message = generateLocaledMessage(locale, e);
             return new ErrorResponse(message);
         }
 
+    }
+
+
+    private String generateLocaledMessage(Locale locale, Throwable e) {
+        String message = null;
+        String key = e.getMessage();
+        try {
+            message = messageSource.getMessage(key, null, locale);
+        } catch (NoSuchMessageException noSuchMessageException) {
+            message = key;
+        }
+        return message;
     }
 
 }
