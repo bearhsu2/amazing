@@ -8,6 +8,25 @@ import static org.junit.jupiter.api.Assertions.fail;
 class EmailDataCheckerTest {
 
     @Test
+    void When_ReEnterPassword_Incorrect_Then_Throw_Exception() {
+
+        try {
+            runChecker("GOOD_PASSWORD", "GOOD_PASSWORD!@#");
+            fail("Should throw exception.");
+        } catch (CheckerException e) {
+            Assertions.assertThat(e)
+                    .hasMessage("Re-enter Password incorrect.");
+        }
+
+    }
+
+
+    private void runChecker(String password, String confirmPassword) throws CheckerException {
+        new EmailDataChecker().check(new RegisterData("AnyName", "AnyEmail", password, confirmPassword));
+    }
+
+
+    @Test
     void When_Password_Empty_Then_Throw_Exception() {
 
         try {
@@ -32,10 +51,5 @@ class EmailDataCheckerTest {
                     .hasMessage("Password too short.");
         }
 
-    }
-
-
-    private void runChecker(String password, String confirmPassword) throws CheckerException {
-        new EmailDataChecker().check(new RegisterData("AnyName", "AnyEmail", password, confirmPassword));
     }
 }

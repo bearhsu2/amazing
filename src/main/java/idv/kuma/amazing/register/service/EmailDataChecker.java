@@ -12,5 +12,9 @@ public class EmailDataChecker implements DataChecker {
             throw new CheckerException("Password too short.");
         }
 
+        if (!registerData.getPassword().equals(registerData.getConfirmPassword())) {
+            throw new CheckerException("Re-enter Password incorrect.");
+        }
+
     }
 }
