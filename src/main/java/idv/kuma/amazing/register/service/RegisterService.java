@@ -1,6 +1,6 @@
 package idv.kuma.amazing.register.service;
 
-import idv.kuma.amazing.RegisterException;
+import idv.kuma.amazing.ServiceException;
 import idv.kuma.amazing.register.controller.RegisterForm;
 
 public class RegisterService {
@@ -19,7 +19,7 @@ public class RegisterService {
     }
 
 
-    public String register(RegisterForm registerForm) throws RegisterException {
+    public String register(RegisterForm registerForm) throws ServiceException {
 
         try {
             checker.check(registerForm);
@@ -30,8 +30,8 @@ public class RegisterService {
 
             return tokenGenerator.generate();
 
-        } catch (CheckerException e) {
-            throw new RegisterException(e.getMessage());
+        } catch (CheckerException | RegisterException e) {
+            throw new ServiceException(e.getMessage(), e);
         }
 
     }

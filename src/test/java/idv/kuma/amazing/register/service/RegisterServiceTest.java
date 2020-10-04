@@ -1,6 +1,6 @@
 package idv.kuma.amazing.register.service;
 
-import idv.kuma.amazing.RegisterException;
+import idv.kuma.amazing.ServiceException;
 import idv.kuma.amazing.register.controller.RegisterForm;
 import org.assertj.core.api.Assertions;
 import org.junit.Assert;
@@ -14,15 +14,16 @@ import static org.mockito.Mockito.when;
 public class RegisterServiceTest {
 
 
-    private RegisterForm form;
     public FormChecker mockedChecker;
     public Registerer mockedRegisterer;
     public TokenGenerator mockedTokenGenerator;
     public Messenger mockedMessenger;
+    private RegisterForm form;
 
 
     @BeforeEach
     void setUp() {
+        form = new RegisterForm();
         mockedChecker = Mockito.mock(FormChecker.class);
         mockedRegisterer = Mockito.mock(Registerer.class);
         mockedTokenGenerator = Mockito.mock(TokenGenerator.class);
@@ -31,10 +32,9 @@ public class RegisterServiceTest {
 
 
     @Test
-    public void When_Checker_Fails_Then_Throw_Exception() throws CheckerException {
+    public void When_Register_Fails_Then_Throw_Exception() throws RegisterException {
 
-        form = new RegisterForm();
-        doThrow(new CheckerException("FAKE_MESSAGE")).when(mockedChecker).check(form);
+        doThrow(new RegisterException("FAKE_REGISTER_MESSAGE")).when(mockedRegisterer).doRegister(form);
 
         RegisterService service = new RegisterService(
                 mockedChecker,
@@ -46,8 +46,8 @@ public class RegisterServiceTest {
         try {
             service.register(form);
             Assert.fail("Should throw exception");
-        } catch (RegisterException e) {
-            Assertions.assertThat(e).hasMessage("FAKE_MESSAGE");
+        } catch (ServiceException e) {
+            Assertions.assertThat(e).hasMessage("FAKE_REGISTER_MESSAGE");
         }
 
 
@@ -55,9 +55,31 @@ public class RegisterServiceTest {
 
 
     @Test
-    public void When_All_Ok_Then_Return_Token() throws RegisterException {
+    public void When_Checker_Fails_Then_Throw_Exception() throws CheckerException {
 
-        form = new RegisterForm();
+        doThrow(new CheckerException("FAKE_CHECKER_MESSAGE")).when(mockedChecker).check(form);
+
+        RegisterService service = new RegisterService(
+                mockedChecker,
+                mockedRegisterer,
+                mockedTokenGenerator,
+                mockedMessenger
+        );
+
+        try {
+            service.register(form);
+            Assert.fail("Should throw exception");
+        } catch (ServiceException e) {
+            Assertions.assertThat(e).hasMessage("FAKE_CHECKER_MESSAGE");
+        }
+
+
+    }
+
+
+    @Test
+    public void When_All_Ok_Then_Return_Token() throws ServiceException {
+
         when(mockedTokenGenerator.generate()).thenReturn("FAKE_TOKEN");
 
         RegisterService service = new RegisterService(

@@ -1,6 +1,6 @@
 package idv.kuma.amazing.register.controller;
 
-import idv.kuma.amazing.RegisterException;
+import idv.kuma.amazing.ServiceException;
 import idv.kuma.amazing.register.service.RegisterService;
 import idv.kuma.amazing.register.service.RegisterServiceFactory;
 import org.assertj.core.api.Assertions;
@@ -13,7 +13,7 @@ public class RegisterControllerTest {
 
 
     @Test
-    public void When_All_OK_Then_Throws_Exception_Then_Return_Response() throws RegisterException {
+    public void When_All_OK_Then_Throws_Exception_Then_Return_Response() throws ServiceException {
 
         RegisterForm form = prepareForm();
 
@@ -32,7 +32,7 @@ public class RegisterControllerTest {
     }
 
 
-    private RegisterServiceFactory prepareRegisterServiceReturn(RegisterForm form, String token) throws RegisterException {
+    private RegisterServiceFactory prepareRegisterServiceReturn(RegisterForm form, String token) throws ServiceException {
 
         RegisterService mockedService = Mockito.mock(RegisterService.class);
         when(mockedService.register(form)).thenReturn(token);
@@ -52,7 +52,7 @@ public class RegisterControllerTest {
 
 
     @Test
-    public void When_RegisterService_Throws_Exception_Then_Return_ErrorResponse() throws RegisterException {
+    public void When_RegisterService_Throws_Exception_Then_Return_ErrorResponse() throws ServiceException {
 
         RegisterForm form = prepareForm();
 
@@ -66,9 +66,9 @@ public class RegisterControllerTest {
     }
 
 
-    private RegisterServiceFactory prepareRegisterServiceThrow(RegisterForm form, String message) throws RegisterException {
+    private RegisterServiceFactory prepareRegisterServiceThrow(RegisterForm form, String message) throws ServiceException {
         RegisterService mockedService = Mockito.mock(RegisterService.class);
-        when(mockedService.register(form)).thenThrow(new RegisterException(message));
+        when(mockedService.register(form)).thenThrow(new ServiceException(message));
 
         RegisterServiceFactory factory = Mockito.mock(RegisterServiceFactory.class);
         when(factory.create(form)).thenReturn(mockedService);

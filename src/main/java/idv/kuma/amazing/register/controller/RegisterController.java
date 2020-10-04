@@ -1,7 +1,7 @@
 package idv.kuma.amazing.register.controller;
 
 
-import idv.kuma.amazing.RegisterException;
+import idv.kuma.amazing.ServiceException;
 import idv.kuma.amazing.register.service.RegisterService;
 import idv.kuma.amazing.register.service.RegisterServiceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class RegisterController {
             RegisterService registerService = factory.create(registerForm);
             return new SuccessResponse(registerService.register(registerForm));
 
-        } catch (RegisterException e) {
+        } catch (ServiceException e) {
             return new ErrorResponse(e.getMessage());
         }
 
