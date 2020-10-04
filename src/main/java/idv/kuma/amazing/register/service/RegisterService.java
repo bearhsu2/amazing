@@ -25,11 +25,11 @@ public class RegisterService {
 
             registerer.doRegister(registerData);
 
-            messenger.send();
+            messenger.send(registerData);
 
             return tokenGenerator.generate();
 
-        } catch (CheckerException | RegisterException e) {
+        } catch (CheckerException | RegisterException | MessengerException e) {
             throw new ServiceException(e.getMessage(), e);
         }
 
