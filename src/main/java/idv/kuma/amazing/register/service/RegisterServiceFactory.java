@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RegisterServiceFactory {
 
-    public RegisterService create(Type type) {
+    public RegisterService create(Type type) throws RegisterServiceFactoryException {
 
         if (type.equals(Type.EMAIL)) {
             return new RegisterService(
@@ -15,13 +15,15 @@ public class RegisterServiceFactory {
                     new TokenGenerator(),
                     new EmailMessenger()
             );
-        } else {
+        } else if (type.equals(Type.PHONE)) {
             return new RegisterService(
-                    null,
-                    null,
+                    new PhoneDataChecker(),
+                    new PhoneRegisterer(),
                     new TokenGenerator(),
-                    null
+                    new PhoneMessenger()
             );
         }
+
+        throw new RegisterServiceFactoryException("type unsupported");
     }
 }

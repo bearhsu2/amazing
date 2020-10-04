@@ -5,6 +5,7 @@ import idv.kuma.amazing.ServiceException;
 import idv.kuma.amazing.register.service.RegisterData;
 import idv.kuma.amazing.register.service.RegisterService;
 import idv.kuma.amazing.register.service.RegisterServiceFactory;
+import idv.kuma.amazing.register.service.RegisterServiceFactoryException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +37,7 @@ public class RegisterController {
             RegisterData registerData = registerForm.toRegisterData();
             return new SuccessResponse(registerService.register(registerData));
 
-        } catch (ServiceException e) {
+        } catch (ServiceException | RegisterServiceFactoryException e) {
             return new ErrorResponse(e.getMessage());
         }
 

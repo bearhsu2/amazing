@@ -12,11 +12,12 @@ class RegisterServiceFactoryTest {
 
 
     @Test
-    void When_User_Selects_Email_Then_Return_Email_Service() {
+    void When_User_Selects_Email_Then_Return_Email_Service() throws RegisterServiceFactoryException {
 
         factory = new RegisterServiceFactory();
 
         runAndCheck(
+                Type.EMAIL,
                 EmailDataChecker.class,
                 EmailRegisterer.class,
                 EmailMessenger.class
@@ -25,8 +26,8 @@ class RegisterServiceFactoryTest {
     }
 
 
-    private void runAndCheck(Class<EmailDataChecker> checkerClass, Class<EmailRegisterer> registererClass, Class<EmailMessenger> messengerClass) {
-        RegisterService service = factory.create(Type.EMAIL);
+    private void runAndCheck(Type type, Class checkerClass, Class registererClass, Class messengerClass) throws RegisterServiceFactoryException {
+        RegisterService service = factory.create(type);
 
         Assertions.assertThat(service.getChecker())
                 .isNotNull()
@@ -40,5 +41,20 @@ class RegisterServiceFactoryTest {
         Assertions.assertThat(service.getMessenger())
                 .isNotNull()
                 .isInstanceOf(messengerClass);
+    }
+
+
+    @Test
+    void When_User_Selects_Phone_Then_Return_Phone_Service() throws RegisterServiceFactoryException {
+
+        factory = new RegisterServiceFactory();
+
+        runAndCheck(
+                Type.PHONE,
+                PhoneDataChecker.class,
+                PhoneRegisterer.class,
+                PhoneMessenger.class
+        );
+
     }
 }
