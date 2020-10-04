@@ -18,7 +18,7 @@ class EmailMessengerTest {
 
 
     @Test
-    void name() throws MessengerException, MessagingException, IOException {
+    void When_All_Ok_Then_Email_Is_Sent() throws MessengerException, MessagingException, IOException {
         mockedTransporter = Mockito.mock(Transporter.class);
 
         new EmailMessenger(mockedTransporter).send(null);
