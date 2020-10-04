@@ -1,4 +1,4 @@
-package idv.kuma.amazing.register;
+package idv.kuma.amazing.register.service;
 
 public class TokenGenerator {
     public String generate() {

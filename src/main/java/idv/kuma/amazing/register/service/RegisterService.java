@@ -1,7 +1,7 @@
 package idv.kuma.amazing.register.service;
 
 import idv.kuma.amazing.RegisterException;
-import idv.kuma.amazing.register.*;
+import idv.kuma.amazing.register.controller.RegisterForm;
 
 public class RegisterService {
 

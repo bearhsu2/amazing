@@ -1,4 +1,4 @@
-package idv.kuma.amazing.register;
+package idv.kuma.amazing.register.service;
 
 public interface Messenger {
     void send();

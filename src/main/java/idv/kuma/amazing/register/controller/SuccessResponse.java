@@ -1,4 +1,6 @@
-package idv.kuma.amazing.register;
+package idv.kuma.amazing.register.controller;
+
+import idv.kuma.amazing.register.controller.Response;
 
 public class SuccessResponse extends Response {
     private String token;
