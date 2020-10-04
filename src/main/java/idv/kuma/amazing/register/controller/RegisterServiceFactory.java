@@ -9,7 +9,7 @@ public class RegisterServiceFactory {
     public RegisterService create(Type type) throws RegisterServiceFactoryException {
 
         if (type == null) {
-            throw new RegisterServiceFactoryException("Type unsupported.");
+            throw new RegisterServiceFactoryException("Type unprovided.");
         }
 
         switch (type) {
