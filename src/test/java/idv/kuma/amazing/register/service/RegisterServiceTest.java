@@ -1,7 +1,6 @@
 package idv.kuma.amazing.register.service;
 
 import idv.kuma.amazing.ServiceException;
-import idv.kuma.amazing.register.controller.RegisterForm;
 import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,12 +17,12 @@ public class RegisterServiceTest {
     public Registerer mockedRegisterer;
     public TokenGenerator mockedTokenGenerator;
     public Messenger mockedMessenger;
-    private RegisterForm form;
+    private RegisterData data;
 
 
     @BeforeEach
     void setUp() {
-        form = new RegisterForm();
+        data = new RegisterData("AnyName", "AnyEmail", "AnyPassword");
         mockedChecker = Mockito.mock(FormChecker.class);
         mockedRegisterer = Mockito.mock(Registerer.class);
         mockedTokenGenerator = Mockito.mock(TokenGenerator.class);
@@ -34,7 +33,7 @@ public class RegisterServiceTest {
     @Test
     public void When_Register_Fails_Then_Throw_Exception() throws RegisterException {
 
-        doThrow(new RegisterException("FAKE_REGISTER_MESSAGE")).when(mockedRegisterer).doRegister(form);
+        doThrow(new RegisterException("FAKE_REGISTER_MESSAGE")).when(mockedRegisterer).doRegister(data);
 
         RegisterService service = new RegisterService(
                 mockedChecker,
@@ -44,7 +43,7 @@ public class RegisterServiceTest {
         );
 
         try {
-            service.register(form);
+            service.register(data);
             Assert.fail("Should throw exception");
         } catch (ServiceException e) {
             Assertions.assertThat(e).hasMessage("FAKE_REGISTER_MESSAGE");
@@ -57,7 +56,7 @@ public class RegisterServiceTest {
     @Test
     public void When_Checker_Fails_Then_Throw_Exception() throws CheckerException {
 
-        doThrow(new CheckerException("FAKE_CHECKER_MESSAGE")).when(mockedChecker).check(form);
+        doThrow(new CheckerException("FAKE_CHECKER_MESSAGE")).when(mockedChecker).check(data);
 
         RegisterService service = new RegisterService(
                 mockedChecker,
@@ -67,7 +66,7 @@ public class RegisterServiceTest {
         );
 
         try {
-            service.register(form);
+            service.register(data);
             Assert.fail("Should throw exception");
         } catch (ServiceException e) {
             Assertions.assertThat(e).hasMessage("FAKE_CHECKER_MESSAGE");
@@ -89,7 +88,7 @@ public class RegisterServiceTest {
                 mockedMessenger
         );
 
-        String actual = service.register(form);
+        String actual = service.register(data);
 
         Assertions.assertThat(actual).isEqualTo("FAKE_TOKEN");
 

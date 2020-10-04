@@ -1,7 +1,6 @@
 package idv.kuma.amazing.register.service;
 
 import idv.kuma.amazing.ServiceException;
-import idv.kuma.amazing.register.controller.RegisterForm;
 
 public class RegisterService {
 
@@ -19,12 +18,12 @@ public class RegisterService {
     }
 
 
-    public String register(RegisterForm registerForm) throws ServiceException {
+    public String register(RegisterData registerData) throws ServiceException {
 
         try {
-            checker.check(registerForm);
+            checker.check(registerData);
 
-            registerer.doRegister(registerForm);
+            registerer.doRegister(registerData);
 
             messenger.send();
 

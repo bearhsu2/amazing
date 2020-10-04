@@ -1,5 +1,7 @@
 package idv.kuma.amazing.register.service;
 
+import java.util.Objects;
+
 public class RegisterData {
 
 
@@ -42,5 +44,22 @@ public class RegisterData {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RegisterData data = (RegisterData) o;
+        return Objects.equals(name, data.name) &&
+                Objects.equals(email, data.email) &&
+                Objects.equals(password, data.password);
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, email, password);
     }
 }

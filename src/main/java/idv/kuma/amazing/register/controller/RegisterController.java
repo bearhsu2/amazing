@@ -33,7 +33,7 @@ public class RegisterController {
 
             // todo: 改用type選service
             RegisterService registerService = factory.create();
-            return new SuccessResponse(registerService.register(registerForm));
+            return new SuccessResponse(registerService.register(registerData));
 
         } catch (ServiceException e) {
             return new ErrorResponse(e.getMessage());
