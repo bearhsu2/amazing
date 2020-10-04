@@ -1,6 +1,9 @@
-package idv.kuma.amazing.register.service;
+package idv.kuma.amazing.register.controller;
 
+import idv.kuma.amazing.register.controller.RegisterServiceFactory;
+import idv.kuma.amazing.register.controller.RegisterServiceFactoryException;
 import idv.kuma.amazing.register.controller.Type;
+import idv.kuma.amazing.register.service.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 

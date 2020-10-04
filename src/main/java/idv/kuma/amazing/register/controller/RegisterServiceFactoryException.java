@@ -1,4 +1,4 @@
-package idv.kuma.amazing.register.service;
+package idv.kuma.amazing.register.controller;
 
 public class RegisterServiceFactoryException extends Throwable {
     public RegisterServiceFactoryException(String message) {

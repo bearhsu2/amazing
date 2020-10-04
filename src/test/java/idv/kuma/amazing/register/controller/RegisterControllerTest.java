@@ -3,8 +3,6 @@ package idv.kuma.amazing.register.controller;
 import idv.kuma.amazing.ServiceException;
 import idv.kuma.amazing.register.service.RegisterData;
 import idv.kuma.amazing.register.service.RegisterService;
-import idv.kuma.amazing.register.service.RegisterServiceFactory;
-import idv.kuma.amazing.register.service.RegisterServiceFactoryException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
