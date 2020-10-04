@@ -8,6 +8,22 @@ import static org.junit.jupiter.api.Assertions.fail;
 class EmailDataCheckerTest {
 
     @Test
+    void When_Password_Empty_Then_Throw_Exception() {
+
+        EmailDataChecker checker = new EmailDataChecker();
+
+        try {
+            checker.check(new RegisterData("AnyName", "AnyEmail", ""));
+            fail("Should throw exception.");
+        } catch (CheckerException e) {
+            Assertions.assertThat(e)
+                    .hasMessage("Password too short.");
+        }
+
+    }
+
+
+    @Test
     void When_Password_Too_Short_Then_Throw_Exception() {
 
         EmailDataChecker checker = new EmailDataChecker();
