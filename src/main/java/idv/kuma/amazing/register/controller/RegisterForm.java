@@ -8,13 +8,25 @@ public class RegisterForm {
     private String email;
     private String password;
     private String confirmPassword;
+    private Type type;
 
 
-    public RegisterForm(String name, String email, String password, String confirmPassword) {
+    public RegisterForm(String name, String email, String password, String confirmPassword, Type type) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.confirmPassword = confirmPassword;
+        this.type = type;
+    }
+
+
+    public Type getType() {
+        return type;
+    }
+
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
 

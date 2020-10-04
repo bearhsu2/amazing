@@ -8,6 +8,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
@@ -30,7 +31,7 @@ public class RegisterControllerTest {
 
 
     private RegisterForm prepareRegisterForm() {
-        return new RegisterForm("AnyName", "AnyEmail", "AnyPassword", "AnyConfirmPassword");
+        return new RegisterForm("AnyName", "AnyEmail", "AnyPassword", "AnyConfirmPassword", Type.EMAIL);
     }
 
 
@@ -40,7 +41,7 @@ public class RegisterControllerTest {
         when(mockedService.register(eq(data))).thenReturn(token);
 
         RegisterServiceFactory factory = Mockito.mock(RegisterServiceFactory.class);
-        when(factory.create()).thenReturn(mockedService);
+        when(factory.create(any(Type.class))).thenReturn(mockedService);
 
         return factory;
 
@@ -73,7 +74,7 @@ public class RegisterControllerTest {
         when(mockedService.register(eq(data))).thenThrow(new ServiceException(message));
 
         RegisterServiceFactory factory = Mockito.mock(RegisterServiceFactory.class);
-        when(factory.create()).thenReturn(mockedService);
+        when(factory.create(any(Type.class))).thenReturn(mockedService);
 
         return factory;
     }

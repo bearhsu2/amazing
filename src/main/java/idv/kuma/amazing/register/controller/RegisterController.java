@@ -29,10 +29,11 @@ public class RegisterController {
 
         try {
 
-            RegisterData registerData = registerForm.toRegisterData();
 
-            // todo: 改用type選service
-            RegisterService registerService = factory.create();
+            RegisterService registerService = factory.create(registerForm.getType());
+
+
+            RegisterData registerData = registerForm.toRegisterData();
             return new SuccessResponse(registerService.register(registerData));
 
         } catch (ServiceException e) {
