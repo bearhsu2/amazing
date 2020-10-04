@@ -29,14 +29,9 @@ public class RegisterController {
     public Response register(@ModelAttribute RegisterForm registerForm) {
 
         try {
-
-
             RegisterService registerService = factory.create(registerForm.getType());
-
-
             RegisterData registerData = registerForm.toRegisterData();
             return new SuccessResponse(registerService.register(registerData));
-
         } catch (ServiceException | RegisterServiceFactoryException e) {
             return new ErrorResponse(e.getMessage());
         }
