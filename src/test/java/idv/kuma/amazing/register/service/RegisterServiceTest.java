@@ -1,6 +1,7 @@
-package idv.kuma.amazing.register;
+package idv.kuma.amazing.register.service;
 
 import idv.kuma.amazing.RegisterException;
+import idv.kuma.amazing.register.*;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.mockito.Mockito;

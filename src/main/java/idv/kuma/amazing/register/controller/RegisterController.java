@@ -1,7 +1,9 @@
-package idv.kuma.amazing.register;
+package idv.kuma.amazing.register.controller;
 
 
 import idv.kuma.amazing.RegisterException;
+import idv.kuma.amazing.register.*;
+import idv.kuma.amazing.register.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,6 +1,7 @@
-package idv.kuma.amazing.register;
+package idv.kuma.amazing.register.service;
 
 import idv.kuma.amazing.RegisterException;
+import idv.kuma.amazing.register.*;
 
 public class RegisterService {
 
@@ -18,7 +19,7 @@ public class RegisterService {
     }
 
 
-    String register(RegisterForm registerForm) throws RegisterException {
+    public String register(RegisterForm registerForm) throws RegisterException {
 
         try {
             checker.check(registerForm);
