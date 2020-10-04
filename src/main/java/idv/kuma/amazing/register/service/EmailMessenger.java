@@ -39,7 +39,7 @@ public class EmailMessenger implements Messenger {
 
         } catch (MessagingException e) {
 
-            throw new MessengerException("Failed to send email to " + registerData.getEmail());
+            throw new MessengerException("failed.to.send.email");
         }
     }
 
@@ -53,7 +53,7 @@ public class EmailMessenger implements Messenger {
             }
         });
 
-        session.setDebug(true);
+        session.setDebug(false);
         return session;
     }
 

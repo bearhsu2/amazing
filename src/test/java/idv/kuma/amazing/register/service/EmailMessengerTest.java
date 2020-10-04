@@ -32,7 +32,7 @@ class EmailMessengerTest {
             );
             fail("Should throw exception");
         } catch (MessengerException e) {
-            Assert.assertEquals("Failed to send email to SOME@EMAIL.ADDRESS", e.getMessage());
+            Assert.assertEquals("failed.to.send.email", e.getMessage());
 
         }
 
