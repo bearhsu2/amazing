@@ -6,6 +6,9 @@ import idv.kuma.amazing.register.service.RegisterService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.context.MessageSource;
+
+import java.util.Locale;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -21,7 +24,10 @@ public class RegisterControllerTest {
 
         RegisterServiceFactory mockedFactory = prepareRegisterServiceReturn(form.toRegisterData(), "FAKE_TOKEN");
 
-        Response actual = new RegisterController(mockedFactory).register(form);
+        MessageSource mockedMessageSource = prepareMessageSource("FAKE_MESSAGE", Locale.US, "LOCALED_FAKE_MESSAGE");
+
+        Response actual = new RegisterController(mockedFactory, mockedMessageSource)
+                .register(Locale.US, form);
 
         check(actual, new SuccessResponse("FAKE_TOKEN"));
 
@@ -47,6 +53,15 @@ public class RegisterControllerTest {
     }
 
 
+    private MessageSource prepareMessageSource(String key, Locale locale, String localedMessage) {
+        MessageSource mockedMessageSource = Mockito.mock(MessageSource.class);
+        when(mockedMessageSource.getMessage(key, null, locale))
+                .thenReturn(localedMessage);
+
+        return mockedMessageSource;
+    }
+
+
     private void check(Response actual, Response expected) {
         Assertions.assertThat(actual)
                 .isEqualToComparingFieldByField(expected);
@@ -59,10 +74,12 @@ public class RegisterControllerTest {
         RegisterForm form = prepareRegisterForm();
 
         RegisterServiceFactory mockedFactory = prepareRegisterServiceThrow(form.toRegisterData(), "FAKE_MESSAGE");
+        MessageSource mockedMessageSource = prepareMessageSource("FAKE_MESSAGE", Locale.US, "LOCALED_FAKE_MESSAGE");
 
-        Response actual = new RegisterController(mockedFactory).register(form);
+        Response actual = new RegisterController(mockedFactory, mockedMessageSource)
+                .register(Locale.US, form);
 
-        check(actual, new ErrorResponse("FAKE_MESSAGE"));
+        check(actual, new ErrorResponse("LOCALED_FAKE_MESSAGE"));
 
 
     }
