@@ -1,6 +1,5 @@
 package idv.kuma.amazing.register.service;
 
-import idv.kuma.amazing.ServiceException;
 import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;

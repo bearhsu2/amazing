@@ -1,4 +1,4 @@
-package idv.kuma.amazing;
+package idv.kuma.amazing.register.service;
 
 public class ServiceException extends Exception {
     public ServiceException(String message) {

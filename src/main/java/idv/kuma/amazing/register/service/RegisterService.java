@@ -1,7 +1,5 @@
 package idv.kuma.amazing.register.service;
 
-import idv.kuma.amazing.ServiceException;
-
 public class RegisterService {
 
     private DataChecker checker;

@@ -1,7 +1,7 @@
 package idv.kuma.amazing.register.controller;
 
 
-import idv.kuma.amazing.ServiceException;
+import idv.kuma.amazing.register.service.ServiceException;
 import idv.kuma.amazing.register.service.RegisterData;
 import idv.kuma.amazing.register.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
