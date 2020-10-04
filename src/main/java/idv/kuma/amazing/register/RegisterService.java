@@ -1,21 +1,20 @@
 package idv.kuma.amazing.register;
 
 import idv.kuma.amazing.RegisterException;
-import org.springframework.stereotype.Component;
 
 public class RegisterService {
 
-    private Registerer registerer;
     private FormChecker checker;
-    private Messenger messenger;
+    private Registerer registerer;
     private TokenGenerator tokenGenerator;
+    private Messenger messenger;
 
 
-    public RegisterService(Registerer registerer, FormChecker checker, Messenger messenger, TokenGenerator tokenGenerator) {
-        this.registerer = registerer;
+    public RegisterService(FormChecker checker, Registerer registerer, TokenGenerator tokenGenerator, Messenger messenger) {
         this.checker = checker;
-        this.messenger = messenger;
+        this.registerer = registerer;
         this.tokenGenerator = tokenGenerator;
+        this.messenger = messenger;
     }
 
 
