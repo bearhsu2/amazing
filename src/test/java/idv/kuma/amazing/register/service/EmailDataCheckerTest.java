@@ -11,7 +11,7 @@ class EmailDataCheckerTest {
     void When_ReEnterPassword_Incorrect_Then_Throw_Exception() {
 
         try {
-            runChecker("GOOD_PASSWORD", "GOOD_PASSWORD!@#");
+            runChecker("GOOD_PASSWORD", "DIFFERENT_PASSWORD");
             fail("Should throw exception.");
         } catch (CheckerException e) {
             Assertions.assertThat(e)
