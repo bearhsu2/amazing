@@ -21,7 +21,7 @@ public class RegisterControllerTest {
 
         RegisterServiceFactory mockedFactory = prepareRegisterServiceReturn(form.toRegisterData(), "FAKE_TOKEN");
 
-        Response actual = new RegisterController(mockedFactory).greeting(form);
+        Response actual = new RegisterController(mockedFactory).register(form);
 
         check(actual, new SuccessResponse("FAKE_TOKEN"));
 
@@ -30,7 +30,7 @@ public class RegisterControllerTest {
 
 
     private RegisterForm prepareRegisterForm() {
-        return new RegisterForm("AnyName", "AnyEmail", "AnyPassword");
+        return new RegisterForm("AnyName", "AnyEmail", "AnyPassword", "AnyConfirmPassword");
     }
 
 
@@ -60,7 +60,7 @@ public class RegisterControllerTest {
 
         RegisterServiceFactory mockedFactory = prepareRegisterServiceThrow(form.toRegisterData(), "FAKE_MESSAGE");
 
-        Response actual = new RegisterController(mockedFactory).greeting(form);
+        Response actual = new RegisterController(mockedFactory).register(form);
 
         check(actual, new ErrorResponse("FAKE_MESSAGE"));
 

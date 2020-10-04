@@ -25,7 +25,7 @@ public class RegisterController {
 
 
     @PostMapping("/v1/user/register")
-    public Response greeting(@ModelAttribute RegisterForm registerForm) {
+    public Response register(@ModelAttribute RegisterForm registerForm) {
 
         try {
 

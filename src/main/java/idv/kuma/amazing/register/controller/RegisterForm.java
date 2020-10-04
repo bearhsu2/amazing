@@ -7,17 +7,29 @@ public class RegisterForm {
     private String name;
     private String email;
     private String password;
+    private String confirmPassword;
 
 
-    public RegisterForm(String name, String email, String password) {
+    public RegisterForm(String name, String email, String password, String confirmPassword) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.confirmPassword = confirmPassword;
+    }
+
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
 
     public RegisterData toRegisterData() {
-        return new RegisterData(name, email, password);
+        return new RegisterData(name, email, password, confirmPassword);
     }
 
 

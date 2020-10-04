@@ -8,6 +8,25 @@ public class RegisterData {
     private String name;
     private String email;
     private String password;
+    private String confirmPassword;
+
+
+    public RegisterData(String name, String email, String password, String confirmPassword) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+    }
+
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 
 
     public String getName() {
@@ -36,13 +55,6 @@ public class RegisterData {
 
 
     public void setPassword(String password) {
-        this.password = password;
-    }
-
-
-    public RegisterData(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
         this.password = password;
     }
 

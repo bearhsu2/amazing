@@ -22,7 +22,7 @@ public class RegisterServiceTest {
 
     @BeforeEach
     void setUp() {
-        data = new RegisterData("AnyName", "AnyEmail", "AnyPassword");
+        data = new RegisterData("AnyName", "AnyEmail", "AnyPassword", "AnyConfirmPassword");
         mockedChecker = Mockito.mock(DataChecker.class);
         mockedRegisterer = Mockito.mock(Registerer.class);
         mockedTokenGenerator = Mockito.mock(TokenGenerator.class);

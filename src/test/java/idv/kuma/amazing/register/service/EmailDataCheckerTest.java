@@ -11,7 +11,7 @@ class EmailDataCheckerTest {
     void When_Password_Empty_Then_Throw_Exception() {
 
         try {
-            runChecker("");
+            runChecker("", "");
             fail("Should throw exception.");
         } catch (CheckerException e) {
             Assertions.assertThat(e)
@@ -25,7 +25,7 @@ class EmailDataCheckerTest {
     void When_Password_Too_Short_Then_Throw_Exception() {
 
         try {
-            runChecker("SHORT");
+            runChecker("SHORT", "SHORT");
             fail("Should throw exception.");
         } catch (CheckerException e) {
             Assertions.assertThat(e)
@@ -35,7 +35,7 @@ class EmailDataCheckerTest {
     }
 
 
-    private void runChecker(String password) throws CheckerException {
-        new EmailDataChecker().check(new RegisterData("AnyName", "AnyEmail", password));
+    private void runChecker(String password, String confirmPassword) throws CheckerException {
+        new EmailDataChecker().check(new RegisterData("AnyName", "AnyEmail", password, confirmPassword));
     }
 }
