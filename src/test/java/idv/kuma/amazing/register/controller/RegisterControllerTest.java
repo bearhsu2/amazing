@@ -4,7 +4,7 @@ import idv.kuma.amazing.RegisterException;
 import idv.kuma.amazing.register.service.RegisterService;
 import idv.kuma.amazing.register.service.RegisterServiceFactory;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import static org.mockito.Mockito.when;
