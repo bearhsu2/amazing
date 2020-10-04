@@ -15,7 +15,7 @@ class DataCheckerTest {
             fail("Should throw exception.");
         } catch (CheckerException e) {
             Assertions.assertThat(e)
-                    .hasMessage("reenter.password.incorrect.");
+                    .hasMessage("reenter.password.incorrect");
         }
 
     }

@@ -14,7 +14,7 @@ public class DataChecker {
         }
 
         if (!registerData.getPassword().equals(registerData.getConfirmPassword())) {
-            throw new CheckerException("reenter.password.incorrect.");
+            throw new CheckerException("reenter.password.incorrect");
         }
 
     }
