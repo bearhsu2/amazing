@@ -29,9 +29,29 @@ public class RegisterService {
 
             return tokenGenerator.generate();
 
-        } catch (CheckerException | RegisterException | MessengerException e) {
+        } catch (CheckerException | DuplicatedRecordException | MessengerException e) {
             throw new ServiceException(e.getMessage(), e);
         }
 
+    }
+
+
+    public DataChecker getChecker() {
+        return checker;
+    }
+
+
+    public Registerer getRegisterer() {
+        return registerer;
+    }
+
+
+    public TokenGenerator getTokenGenerator() {
+        return tokenGenerator;
+    }
+
+
+    public Messenger getMessenger() {
+        return messenger;
     }
 }

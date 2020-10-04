@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-class EmailDataCheckerTest {
+class DataCheckerTest {
 
     @Test
     void When_ReEnterPassword_Incorrect_Then_Throw_Exception() {
@@ -22,7 +22,7 @@ class EmailDataCheckerTest {
 
 
     private void runChecker(String password, String confirmPassword) throws CheckerException {
-        new EmailDataChecker().check(new RegisterData("AnyName", "AnyEmail", password, confirmPassword));
+        new DataChecker().check(new RegisterData("AnyName", "AnyEmail", password, confirmPassword));
     }
 
 
